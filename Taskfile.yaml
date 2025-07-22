@@ -1,0 +1,48 @@
+version: '3'
+
+tasks:
+  dev:
+    cmds:
+      - go run main.go
+    desc: Run the Go application
+  
+  tasks:
+  build-mac:
+    desc: Build the app
+    cmds:
+      - go build -o seed main.go
+
+  build-linux:
+    desc: Build the app for linux
+    cmds:
+      - GOOS=linux GOARCH=amd64 go build -o bin/seed main.go
+
+  build-windows:
+    desc: Build the app for windows
+    cmds:
+      - GOOS=windows GOARCH=amd64 go build -o seed.exe main.go
+
+  bin-mac:
+    desc: Adds to user bin to use anywhere on the computer in terminal
+    cmds:
+      - sudo mv seed /usr/local/bin
+
+  bin-linux:
+    desc: Adds to user bin to use anywhere on the computer in terminal
+    cmds:
+      - sudo mv bin/seed /usr/local/bin
+
+  bin-windows:
+    desc: Adds to Windows/System32 to use anywhere on the computer in terminal
+    cmds:
+      - Move-Item .\seed.exe C:\Windows\System32\
+
+  zsh-ac:
+    desc: Creates zsh auto completion file
+    cmds:
+      - seed completion zsh > zsh.txt
+      
+  pwsh-ac:
+    desc: Creates powershell auto completion file
+    cmds:
+      - seed completion powershell > pwsh.txt
