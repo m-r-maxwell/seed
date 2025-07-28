@@ -96,12 +96,11 @@ seed data -p 10 -P 5 -l 3 -c 2 -o 4 -r 6 -f output -F parquet`,
 					}
 				default:
 					fmt.Println("Unsupported file format. Please use 'csv' or 'parquet'.")
-
 				}
 			} else {
 				for _, l := range loan {
-					fmt.Printf("Amount: %f, Interest: %f, Term: %d, Default: %s, Gender: %s, Age: %d\n",
-						l.Amount, l.Interest, l.Term, l.Default, l.Gender, l.Age)
+					fmt.Printf("Amount: %.2f, Interest: %.2f, Term: %d, Default: %s, Gender: %s, Age: %d, Income: %.2f\n",
+						l.Amount, l.Interest, l.Term, l.Default, l.Gender, l.Age, l.Income)
 				}
 			}
 		}
