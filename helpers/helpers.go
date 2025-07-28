@@ -174,18 +174,28 @@ func SaveLoanToCSV(filename string, loans []models.Loan) error {
 	defer writer.Flush()
 
 	// Write header
-	header := []string{"ID", "Amount", "Date", "Status"}
+
+	header := []string{"Amount",
+		"Interest",
+		"Term",
+		"Default",
+		"Gender",
+		"Age",
+		"Income"}
 	if err := writer.Write(header); err != nil {
 		return err
 	}
-
 	// Write records
 	for _, l := range loans {
 		record := []string{
-			fmt.Sprintf("%f", l.Amount),
-			fmt.Sprintf("%f", l.Interest),
+			fmt.Sprintf("%.2f", l.Amount),
+			fmt.Sprintf("%.2f", l.Interest),
 			fmt.Sprintf("%d", l.Term),
-			l.Default}
+			l.Default,
+			l.Gender,
+			fmt.Sprintf("%d", l.Age),
+			fmt.Sprintf("%.2f", l.Income),
+		}
 		if err := writer.Write(record); err != nil {
 			return err
 		}

@@ -50,6 +50,7 @@ func GenerateLoanData(count int) []models.Loan {
 			Default:  faker.RandomString([]string{"yes", "no"}),
 			Gender:   faker.RandomString([]string{"male", "female"}),
 			Age:      faker.Number(18, 65), // Age of the borrower
+			Income:   faker.Price(10000, 100000),
 		}
 		loans[i] = loan
 	}

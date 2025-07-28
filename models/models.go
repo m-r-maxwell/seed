@@ -32,7 +32,8 @@ type Loan struct {
 	Term     int     `json:"term" parquet:"name=term, type=INT32"` // Loan term in months
 	Default  string  `json:"default" parquet:"name=default, type=BYTE_ARRAY, convertedtype=UTF8, encoding=PLAIN"`
 	Gender   string  `json:"gender" parquet:"name=gender, type=BYTE_ARRAY, convertedtype=UTF8, encoding=PLAIN"`
-	Age      int     `json:"age" parquet:"name=age, type=INT32"` // Age of the borrower
+	Age      int     `json:"age" parquet:"name=age, type=INT32"`        // Age of the borrower
+	Income   float64 `json:"income" parquet:"name=income, type=DOUBLE"` // Monthly income of the borrower
 }
 
 type Products struct {
