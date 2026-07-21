@@ -6,45 +6,58 @@
 <img src="seed.png" height="250" width="250">
  </div>
 
-# Overview
+# Seed
 
-Seed is a CLI tool for generating realistic test data for people, products, loans, companies, orders, and reviews. The generated data can be printed to the console or saved to CSV or Parquet files for use in development, testing, or analytics.
+A declarative synthetic dataset generation framework.
 
+## Vision
 
-# Example Usage
+Seed models realistic datasets using configurable generators, relationships,
+and business rules instead of simply producing random fake records.
 
-## Print generated data to console
-```sh
-seed data --people 5 --products 3
+This repository is an architectural scaffold for v0.1.
+
+## Quickstart
+
+Create and activate a Python virtual environment, then install the package in editable mode:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -e .
 ```
 
-## Save generated data to CSV
-```sh
-seed data --people 10 --file people --format csv
-```
-This will create `people.csv` in the current directory.
+The project exposes a CLI entrypoint `seed` (configured in `pyproject.toml`). You can also run the CLI directly from the repository root with `PYTHONPATH=src`:
 
-## Save generated data to Parquet
-```sh
-seed data --people 10 --file people --format parquet
-```
-This will create `people.parquet` in the current directory.
+```bash
+# run via package entrypoint (after pip install -e .)
+seed generate examples/customer.yaml --output customers.csv
 
-## Generate multiple types of data
-```sh
-seed data --people 5 --products 5 --loan 2 --companies 2 --file all_data --format csv
+# or run directly from the repo (no install required)
+PYTHONPATH=src python -m seed.cli.main generate examples/customer.yaml --output customers.csv
 ```
 
-# Supported Flags
-- `--people, -p` Number of people records to generate
-- `--products, -P` Number of products records to generate
-- `--loan, -l` Number of loan records to generate
-- `--companies, -c` Number of companies records to generate
-- `--orders, -o` Number of orders records to generate
-- `--reviews, -r` Number of reviews records to generate
-- `--file, -f` Filename to save the generated data (optional)
-- `--format, -F` File format to save the data: `csv` or `parquet` (optional)
+Other commands:
 
-# Requirements
-- Go 1.18+
-- [parquet-go](https://github.com/xitongsys/parquet-go) for Parquet support
+```bash
+seed validate examples/customer.yaml   # validate config and generator params
+seed inspect examples/customer.yaml    # print dataset schema summary
+python ml/explore_dataset.py dataset.csv  # quick EDA script (requires pandas)
+```
+
+## Notes
+
+- `generate` supports a number of built-in generator types: `uuid`, `faker`, `normal`, `categorical`, `const`, `sequence`, and `sample`.
+- Use `--quiet` or `-q` with `generate` to run without progress output (useful for CI):
+
+```bash
+seed generate examples/customer.yaml --output customers.csv --quiet
+```
+
+## Development tasks
+
+This repo includes a `Taskfile.yaml` with common tasks for running and experimenting. See `Taskfile.yaml` for details.
+
+## Next steps / Suggestions
+
+See `suggestions.md` for suggested improvements such as making generators pluggable, adding `inspect --format json`, and unit tests for `validate` and `generate --quiet`.

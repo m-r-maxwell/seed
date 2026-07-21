@@ -1,0 +1,38 @@
+name: customers
+
+size: 2000
+
+fields:
+
+  - name: customer_id
+    generator:
+      type: uuid
+
+  - name: first_name
+    generator:
+      type: faker
+      provider: first_name
+
+  - name: last_name
+    generator:
+      type: faker
+      provider: last_name
+
+  - name: email
+    generator:
+      type: faker
+      provider: email
+
+  - name: age
+    generator:
+      type: normal
+      mean: 42
+      stddev: 12
+
+  - name: account_status
+    generator:
+      type: categorical
+      values:
+        active: 0.85
+        suspended: 0.1
+        closed: 0.05
